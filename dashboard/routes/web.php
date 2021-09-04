@@ -21,6 +21,7 @@ Route::get('customers/report/{customer?}','CustomerController@report')->name('cu
 Route::get('customers/import','CustomerController@import')->name('customers.import');
 Route::post('customers/store-import','CustomerController@storeImport')->name('customers.storeImport');
 Route::resource('customers','CustomerController');
+Route::resource('produto','ProdutoController');
 
 Auth::routes();
 

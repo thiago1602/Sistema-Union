@@ -248,7 +248,7 @@ return [
             'submenu' => [
                 [
                     'text' => 'Novo Cliente',
-                    'url'  => 'customers/create',
+                    'url'     => 'home/settings',
                 ],
                 [
                     'text'    => 'Listar Clientes',
@@ -275,18 +275,23 @@ return [
             ],
         ],
         [
-            'text'    => 'Relatório Clientes',
+            'text'    => 'Analises',
             'icon'    => 'fas fa-clipboard-list',
             'submenu' => [
                 [
-                    'text' => 'Importar',
+                    'text' => 'Relatórios',
                     'url'  => 'admin/settings',
+                    'submenu' => [
+                        [
+                            'text' => 'Clientes',
+                            'url'  => 'admin/settings',
+                        ],
+                        [
+                            'text'=> 'Produtos',
+                            'url'  => 'admin/settings',
+                        ]
+                    ]
                 ],
-                [
-                    'text' => 'Exportar',
-                    'url'  => 'admin/settings',
-                ],
-
 
             ],
         ],
