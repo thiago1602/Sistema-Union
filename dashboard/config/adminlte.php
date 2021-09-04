@@ -248,11 +248,11 @@ return [
             'submenu' => [
                 [
                     'text' => 'Novo Cliente',
-                    'url'     => 'home/settings',
+                    'route'     => 'customers.create',
                 ],
                 [
                     'text'    => 'Listar Clientes',
-                    'url'     => 'home/settings',
+                    'route'     => 'customers.index',
 
                 ],
 
@@ -264,7 +264,7 @@ return [
             'submenu' => [
                 [
                     'text' => 'Novo Produto',
-                    'url'  => 'admin/settings',
+                    'route'  => 'produto.create',
                 ],
                 [
                     'text'    => 'Listar Produtos',

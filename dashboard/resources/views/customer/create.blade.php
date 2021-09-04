@@ -1,13 +1,18 @@
-@extends('layouts.app')
+@extends('adminlte::page')
+
 @section('title')
-    <title>Customers</title>
-@endsection
+    <title>Clientes</title>
 @section('body')
     <br>
-    <div class="mb-3">
-        <a href="{{route('customers.index')}}" class="btn btn-dark">@lang('platform.customer.message.return')</a>
-    </div>
-    <h3>@lang('platform.customer.new')</h3>
+
+@section('content')
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">Cadastrar Cliente</div>
+
+    <div class="card-body">
     <form action="{{route('customers.store')}}" method="POST">
         @method('POST')
         @csrf
@@ -21,7 +26,7 @@
             @endif
         </div>
         <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">@lang('platform.customer.form.email')</label>
+            <label class="form-label">@lang('platform.customer.form.email')</label>
             <input type="text" name="email" class="form-control @error('email') is-invalid @enderror" placeholder="ex. name@example.com"  value="{{old('email')}}">
             @if ($errors->has('email'))
                 <span class="invalid-feedback">
@@ -38,8 +43,16 @@
                 </span>
             @endif
         </div>
-        <div class="d-grid gap-2">
-            <button class="btn btn-outline btn-primary" type="submit">@lang('platform.generic.action.submit')</button>
-        </div>
     </form>
+    </div>
+        <div class="d-grid gap-2">
+            <button class="btn btn-primary" type="submit">@lang('platform.generic.action.submit')</button>
+            <a href="{{route('customers.index')}}" class="btn btn-dark">@lang('platform.customer.message.return')</a>
+        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </form>
+
 @endsection

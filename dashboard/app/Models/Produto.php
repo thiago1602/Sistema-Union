@@ -8,5 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Produto extends Model
 {
     use HasFactory;
+    protected $table = "produto";
+
     protected $fillable = ['nome', 'valor', 'data_cadastro'];
 }

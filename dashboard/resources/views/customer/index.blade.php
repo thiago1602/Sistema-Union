@@ -1,3 +1,5 @@
+@extends('adminlte::page')
+
 @extends('layouts.app')
 @section('title')
     <title>@lang('platform.customer.name')</title>

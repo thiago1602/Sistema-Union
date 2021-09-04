@@ -1,3 +1,6 @@
+@extends('adminlte::page')
+
+
 @extends('layouts.app')
 @section('title')
     <title>Customers</title>

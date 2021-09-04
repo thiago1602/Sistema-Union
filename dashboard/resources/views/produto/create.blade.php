@@ -15,7 +15,7 @@
                             @csrf
                             <div class="mb-3">
                                 <label class="form-label">Produto</label>
-                                <input type="text" class="form-control" name="produto">
+                                <input type="text" class="form-control" name="nome">
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Preço</label>
