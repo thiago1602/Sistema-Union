@@ -1,12 +1,12 @@
 @component('mail::message')
-# Introduction
+# {{$produto}}}
 
-The body of your message.
+Data de cadastro {{$data_cadastro}}
 
-@component('mail::button', ['url' => ''])
-Button Text
+@component('mail::button', ['url' => $url])
+Clique aqui para ver o produto
 @endcomponent
 
-Thanks,<br>
+Att,<br>
 {{ config('app.name') }}
 @endcomponent

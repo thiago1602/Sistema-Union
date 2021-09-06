@@ -268,7 +268,7 @@ return [
                 ],
                 [
                     'text'    => 'Listar Produtos',
-                    'url'     => 'admin/settings',
+                    'route'     => 'produto.index',
 
                 ],
 

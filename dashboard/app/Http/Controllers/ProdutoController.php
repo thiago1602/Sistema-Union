@@ -1,9 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Exports\ProdutosExport;
+Use Illuminate\Support\Facades\Mail;
+use App\Mail\NovoProdutoMail;
 use App\Models\Produto;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
+
 
 class ProdutoController extends Controller
 {
@@ -14,7 +18,9 @@ class ProdutoController extends Controller
      */
     public function index()
     {
-        //
+        $user_id = auth()->user()->id;
+        $produto = Produto::where('user_id', $user_id)->paginate(10);
+        return view('produto.index',['produto' => $produto]);
     }
 
     /**
@@ -31,11 +37,20 @@ class ProdutoController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
-        $produto = Produto::create($request->all());
+        $dados = $request->all('produto', 'data_cadastro');
+        if (isset(auth()->user()->id)) {
+            $dados['user_id'] = auth()->user()->id;
+        }
+
+        dd($dados);
+
+        $produto = Produto::create($dados);
+        $destinatario = auth()->user()->email;  //usuario logado
+        Mail::to($destinatario)->send(new NovoProdutoMail($produto) );
         return redirect()->route('produto.show', ['produto' => $produto->id]);
     }
 
@@ -47,7 +62,7 @@ class ProdutoController extends Controller
      */
     public function show(Produto $produto)
     {
-        dd($produto->getAttributes());
+        return view('produto.show', ['produto'=> $produto]);
     }
 
     /**
@@ -58,7 +73,15 @@ class ProdutoController extends Controller
      */
     public function edit(Produto $produto)
     {
-        //
+        $user_id = auth()->user()->id;
+
+       if($produto->user_id == $user_id){
+           return view('produto.edit', ['produto' => $produto]);
+
+       }
+
+       return view('acesso-negado');
+
     }
 
     /**
@@ -70,8 +93,15 @@ class ProdutoController extends Controller
      */
     public function update(Request $request, Produto $produto)
     {
-        //
-    }
+
+        if (!$produto->user_id == auth()->user()->id) {
+            return view('acesso-negado');
+        }
+
+            $produto->update($request->all());
+            return redirect()->route('produto.show', ['produto' => $produto->id]);
+        }
+
 
     /**
      * Remove the specified resource from storage.
@@ -81,6 +111,18 @@ class ProdutoController extends Controller
      */
     public function destroy(Produto $produto)
     {
-        //
+
+        if (!$produto->user_id == auth()->user()->id) {
+            return view('acesso-negado');
+        }
+       $produto->delete();
+        return redirect()->route('produto.index');
+
     }
+
+    public function exportacao(){
+        return Excel::download(new ProdutosExport, 'lista_de_produtos.xlsx');
+    }
+
+
 }
