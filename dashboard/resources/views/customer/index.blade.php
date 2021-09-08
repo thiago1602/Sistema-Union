@@ -1,5 +1,6 @@
 @extends('adminlte::page')
 
+
 @extends('layouts.app')
 @section('title')
     <title>@lang('platform.customer.name')</title>
@@ -19,36 +20,36 @@
     <div class="mb-3">
         <table class="table">
             <thead>
-                <tr>
+            <tr>
                 <th scope="col">#</th>
                 <th scope="col">@lang('platform.customer.form.cpf')</th>
                 <th scope="col">@lang('platform.customer.form.name')</th>
                 <th scope="col">@lang('platform.customer.form.email')</th>
                 <th scope="col">@lang('platform.customer.form.options')</th>
-                </tr>
+            </tr>
             </thead>
             <tbody>
-                @if(count($customers)==0)
-                    <td colspan="5">@lang('platform.customer.message.no_data')</td>
-                @else
-                    @foreach ($customers as $item)
-                        <tr>
-                            <th scope="row">{{$item->id}}</th>
-                            <td>{{$item->cpf}}</td>
-                            <td>{{$item->name}}</td>
-                            <td>{{$item->email}}</td>
-                            <td>
-                                <a href="{{route('customers.report',$item->id)}}" class="btn btn-info btn-outline btn-sm">@lang('platform.generic.action.report')</a>
-                                <a href="{{route('customers.edit',$item->id)}}" class="btn btn-primary btn-outline btn-sm">@lang('platform.generic.action.edit')</a>
-                                <form method="POST" action="{{ route('customers.destroy', $item->id) }}" style="display: inline" onsubmit="return confirm('@lang('platform.customer.message.delete')');" >
-                                    @csrf
-                                    @method('DELETE')
-                                    <button class="btn btn-danger btn-outline btn-sm"><i class="far fa-trash-alt"></i>@lang('platform.generic.action.delete')</button>
-                                </form>
-                            </td>
-                        </tr>
-                    @endforeach
-                @endif
+            @if(count($customers)==0)
+                <td colspan="5">@lang('platform.customer.message.no_data')</td>
+            @else
+                @foreach ($customers as $item)
+                    <tr>
+                        <th scope="row">{{$item->id}}</th>
+                        <td>{{$item->cpf}}</td>
+                        <td>{{$item->name}}</td>
+                        <td>{{$item->email}}</td>
+                        <td>
+                            <a href="{{route('customers.report',$item->id)}}" class="btn btn-info btn-outline btn-sm">@lang('platform.generic.action.report')</a>
+                            <a href="{{route('customers.edit',$item->id)}}" class="btn btn-primary btn-outline btn-sm">@lang('platform.generic.action.edit')</a>
+                            <form method="POST" action="{{ route('customers.destroy', $item->id) }}" style="display: inline" onsubmit="return confirm('@lang('platform.customer.message.delete')');" >
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn btn-danger btn-outline btn-sm"><i class="far fa-trash-alt"></i>@lang('platform.generic.action.delete')</button>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
+            @endif
             </tbody>
         </table>
     </div>
@@ -80,7 +81,7 @@
     <script>
         $(document).ready( function () {
             @if(Session::has('report'))
-                $('#modal-report-download').modal('show')
+            $('#modal-report-download').modal('show')
             @endif
         });
     </script>

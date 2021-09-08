@@ -14,6 +14,7 @@ class Produto extends Model
 
     public function user()
     {
+        // belongsTo pertence a
         return $this->belongsTo('App\Models\User');
     }
 }

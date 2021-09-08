@@ -10,4 +10,10 @@ class Customer extends Model
     use HasFactory;
 
     public $fillable = ['name','email','cpf'];
+
+    public function user()
+    {
+        // belongsTo pertence a
+        return $this->belongsTo('App\Models\User');
+    }
 }

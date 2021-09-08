@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\CustomersExport;
 use App\Http\Requests\CustomerRequest;
 use App\Http\Requests\ImportRequest;
 use App\Import\CustomerImport;
@@ -9,6 +10,7 @@ use App\Models\Customer;
 use App\Report\CustomerReport;
 use Illuminate\Http\Request;
 use Exception;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CustomerController extends Controller
 {
@@ -187,7 +189,13 @@ class CustomerController extends Controller
 
     public function report($customer_id = null)
     {
-        if($customer_id==null){
+
+        return Excel::download(new CustomersExport, 'lista_de_clientes.xlsx');
+
+
+
+
+       /** if($customer_id==null){
             $customers = $this->customer->all();
         }else{
             $customers = $this->customer->where('id',$customer_id)->get();
@@ -203,5 +211,7 @@ class CustomerController extends Controller
             );
         }
         return back()->with($notification);
+        **/
     }
+
 }

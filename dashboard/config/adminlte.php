@@ -284,11 +284,11 @@ return [
                     'submenu' => [
                         [
                             'text' => 'Clientes',
-                            'url'  => 'admin/settings',
+                            'route'  => 'customers.index',
                         ],
                         [
                             'text'=> 'Produtos',
-                            'url'  => 'admin/settings',
+                            'route'  => 'produto.exportacao',
                         ]
                     ]
                 ],

@@ -1,15 +1,18 @@
 @extends('adminlte::page')
 
-@extends('layouts.app')
 @section('title')
-    <title>Customers</title>
-@endsection
+    <title>Clientes</title>
+
 @section('body')
     <br>
-    <div class="mb-3">
-        <a href="{{route('customers.index')}}" class="btn btn-dark">@lang('platform.customer.message.return')</a>
-    </div>
-    <h3>@lang('platform.customer.import')</h3>
+
+@section('content')
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">Editar Cliente</div>
+
     <form method="POST" action="{{ route('customers.storeImport') }}" enctype="multipart/form-data">
         @method('POST')
         @csrf
@@ -24,6 +27,11 @@
         </div>
         <div class="d-grid gap-2">
             <button class="btn btn-outline btn-primary" type="submit">@lang('platform.generic.action.submit')</button>
+            <a href="{{route('customers.index')}}" class="btn btn-dark">@lang('platform.customer.message.return')</a>
         </div>
     </form>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection

@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title')
     <title>Clientes</title>
 @section('body')
     <br>
+
 
 @section('content')
     <div class="container">
