@@ -15,8 +15,11 @@
                             </div>
                             <div class="col-6">
                                 <div class="float-right">
-                                    <a href="{{route('customers.create')}}" class="mr-3">Novo</a> </div>
-                                <a href="{{route('customers.report')}}">XLSX</a> </div>
+                                    <a href="{{route('customers.create')}}" class="mr-3"><button class="btn btn-primary" type="submit">Novo</button></a>
+                                    <a href="{{route('customers.report', ['extensao' => 'xlsx'])}}" class="mr-3"><button class="btn btn-primary" type="submit">XLSX</button></a>
+                                <a href="{{route('customers.report', ['extensao' => 'csv'])}}" class="mr-3"><button class="btn btn-primary" type="submit">CSV</button></a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -43,12 +46,12 @@
                             <td>{{$c['email']}}</td>
                             <td>{{$c['cpf']}}</td>
                             <td>{{date ('d/m/Y', strtotime($c['data_cadastro']))}}</td>
-                            <td><a href="{{route('customers.edit', $c['id'])}}">Editar</a>
+                            <td><a href="{{route('customers.edit', $c['id'])}}"><button class="btn btn-primary" type="submit">Editar</button></a>
                                 <form id="form_{{$c['id']}}" method="post" action="{{route('customers.destroy', ['customer' => $c['id']])}}">
                                     @method('DELETE')
                                     @csrf
                                 </form>
-                            <td><a href="#" onclick="document.getElementById('form_{{$c['id']}}').submit()">Excluir</a> </td>
+                            <td><a href="#" onclick="document.getElementById('form_{{$c['id']}}').submit()"><button class="btn btn-danger" type="submit">Excluir</button></a> </td>
                         </tr>
 
                     @endforeach

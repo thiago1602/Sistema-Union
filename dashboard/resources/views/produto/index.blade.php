@@ -15,11 +15,14 @@
                             </div>
                             <div class="col-6">
                                 <div class="float-right">
-                        <a href="{{route('produto.create')}}" class="mr-3">Novo</a> </div>
-                        <a href="{{route('produto.exportacao')}}">XLSX</a> </div>
+                        <a href="{{route('produto.create')}}" class="mr-3"><button class="btn btn-primary" type="submit">Novo</button></a>
+                        <a href="{{route('produto.exportacao', ['extensao' => 'xlsx'])}}" class="mr-3"><button class="btn btn-primary" type="submit">XLSX</button></a>
+                        <a href="{{route('produto.exportacao', ['extensao' => 'csv'])}}" class="mr-3" ><button class="btn btn-primary" type="submit">CSV</button></a>
+                            </div>
+                        </div>
                     </div>
-                    </div>
-                    </div>
+                </div>
+            </div>
                 </div>
                     <div class="card-body">
 
@@ -41,12 +44,12 @@
                                 <td>{{$p['nome']}}</td>
                                 <td>{{date ('d/m/Y', strtotime($p['data_cadastro']))}}</td>
                                 <td>{{$p['valor']}}</td>
-                                <td><a href="{{route('produto.edit', $p['id'])}}">Editar</a>
+                                <td><a href="{{route('produto.edit', $p['id'])}}"><button class="btn btn-primary" type="submit">Editar</button></a>
                                 <form id="form_{{$p['id']}}" method="post" action="{{route('produto.destroy', ['produto' => $p['id']])}}">
                                       @method('DELETE')
                                 @csrf
                                 </form>
-                                <td><a href="#" onclick="document.getElementById('form_{{$p['id']}}').submit()">Excluir</a> </td>
+                                <td><a href="#" onclick="document.getElementById('form_{{$p['id']}}').submit()"> <button class="btn btn-danger" type="submit">Excluir</button></a> </td>
                             </tr>
 
                             @endforeach

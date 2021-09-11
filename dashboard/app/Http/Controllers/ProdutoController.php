@@ -118,8 +118,19 @@ class ProdutoController extends Controller
 
     }
 
-    public function exportacao(){
-        return Excel::download(new ProdutosExport, 'lista_de_produtos.xlsx');
+    public function exportacao($extensao){
+
+        $nome_arquivo =  'lista_de_produtos';
+
+        if ($extensao == 'xlsx'){
+            $nome_arquivo .= '.'.$extensao;
+        }else if ($extensao == 'csv'){
+            $nome_arquivo .= '.'.$extensao;
+        } else{
+            return redirect()->route('produto.index');
+
+        }
+        return Excel::download(new ProdutosExport, $nome_arquivo);
     }
 
 

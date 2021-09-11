@@ -134,10 +134,21 @@ class CustomerController extends Controller
 //        }
 //    }
 
-    public function report($customer_id = null)
+    public function report($extensao)
     {
 
-        return Excel::download(new CustomersExport, 'lista_de_clientes.xlsx');
+
+        $nome_arquivo =  'lista_de_clientes';
+
+        if ($extensao == 'xlsx'){
+            $nome_arquivo .= '.'.$extensao;
+        }else if ($extensao == 'csv'){
+            $nome_arquivo .= '.'.$extensao;
+        } else{
+            return redirect()->route('customer.index');
+
+        }
+        return Excel::download(new CustomersExport, $nome_arquivo);
 
 
 
