@@ -14,24 +14,14 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class CustomerController extends Controller
 {
-    protected $customer;
-    protected $customer_import;
-    protected $customer_report;
 
-    public function __construct(Customer $customer,
-                                CustomerImport $customer_import,
-                                CustomerReport $customer_report )
-    {
-        $this->customer = $customer;
-        $this->customer_import = $customer_import;
-        $this->customer_report = $customer_report;
-
-    }
 
     public function index()
     {
-        $customers =  $this->customer->all()->sortBy('name');
-        return view('customer.index',['customers'=>$customers]);
+
+        $user_id = auth()->user()->id;
+        $customers = Customer::where('user_id', $user_id)->paginate(10);
+        return view('customer.index',['customers' => $customers]);
     }
 
     public function create()
@@ -41,151 +31,108 @@ class CustomerController extends Controller
 
     public function store(CustomerRequest $request)
     {
-        try{
-            $this->customers->create($request->all());
-            $notification = array(
-                'title'=> trans('validation.generic.Success'),
-                'message'=> trans('validation.generic.created'),
-                'alert-type' => 'success'
-            );
-            return redirect()->route('customers.index')->with($notification);
+        $dados = $request->all('name','email', 'cpf', 'data_cadastro');
+        if (isset(auth()->user()->id)) {
+            $dados['user_id'] = auth()->user()->id;
         }
-        catch(\Exception $e)
-        {
-            $notification = array(
-                'title'=> trans('validation.generic.Error'),
-                'message'=> trans('validation.generic.not_created').': '.$e->getMessage(),
-                'alert-type' => 'danger'
-            );
-            return back()->with($notification)->withInput();
-        }
+
+        $customers = Customer::create($dados);
+        return redirect()->route('customer.show', ['customers' => $customers->id]);
     }
 
-    public function edit($id)
+
+    public function show(Customer $customers)
     {
-        //first method
-            /*
-            $customer =  $this->customer->where('id',$id)->firstOrFail();
-            return view('customer.edit',['customer'=>$customer]);
-            */
-        //second method
-            /*
-            $customer =  $this->customer->findOrFail($id);
-            return view('customer.edit',['customer'=>$customer]);
-            */
-        //third method
-            try{
-                $customer =  $this->customer->find($id);
-                if(empty($customer)){
-                    throw new Exception('not found result for param like "'.$id.'"');
-                }
-                return view('customer.edit',['customer'=>$customer]);
-            }catch(Exception $e){
-                $notification = array(
-                    'title'=> trans('validation.generic.Error'),
-                    'message'=> $e->getMessage(),
-                    'alert-type' => 'danger'
-                );
-                return back()->with($notification)->withInput();
-            }
+        return view('customer.show', ['customers'=> $customers]);
     }
 
-    public function update(CustomerRequest $request, $id)
+    public function edit(Customer $customers)
     {
-        $customer = $this->customer->findOrFail($id);
-        try{
-            $customer->update($request->all());
-            $notification = array(
-                'title'=> trans('validation.generic.Success'),
-                'message'=> trans('validation.generic.updated'),
-                'alert-type' => 'success'
-            );
-            return redirect()->route('customers.index')->with($notification);
+        $user_id = auth()->user()->id;
+
+        if($customers->user_id == $user_id){
+            return view('customer.edit', ['customers' => $customers]);
+
         }
-        catch(\Exception $e)
-        {
-            $notification = array(
-                'title'=> trans('validation.generic.Error'),
-                'message'=> trans('validation.generic.not_updated').': '.$e->getMessage(),
-                'alert-type' => 'danger'
-            );
-            return back()->with($notification)->withInput();
-        }
+
+        return view('acesso-negado');
+
     }
 
-    public function destroy($id)
+    public function update(Request $request, Customer $customers)
     {
-        $customer = $this->customer->findOrFail($id);
-        try{
-            $customer->delete();
-            $notification = array(
-                'title'=> trans('validation.generic.Success'),
-                'message'=> trans('validation.generic.deleted'),
-                'alert-type' => 'success'
-            );
-            return redirect()->route('customers.index')->with($notification);
+
+        if (!$customers->user_id == auth()->user()->id) {
+            return view('acesso-negado');
         }
-        catch(\Exception $e)
-        {
-            $notification = array(
-                'title'=> trans('validation.generic.Error'),
-                'message'=> trans('validation.generic.not_deleted').': '.$e->getMessage(),
-                'alert-type' => 'danger'
-            );
-            return back()->with($notification);
-        }
+
+        $customers->update($request->all());
+        return redirect()->route('customer.show', ['customers' => $customers->id]);
     }
 
-    public function import()
+
+
+    public function destroy(Customer $customers)
     {
-        return view('customer.import');
+
+        if (!$customers->user_id == auth()->user()->id) {
+            return view('acesso-negado');
+        }
+        $customers->delete();
+        return redirect()->route('customer.index');
+
     }
 
-    public function storeImport(ImportRequest $request)
-    {
-        try{
-            $notification = $this->customer_import->allData($request);
-            $notification = array(
-                'title'=> trans('validation.generic.Success'),
-                'message'=> trans('validation.generic.imported')." ".
-                            trans('validation.generic.data_created')." : ".$notification['created'].". ".
-                            trans('validation.generic.data_updated')." : ".$notification['updated'],
-                'alert-type' => 'success'
-            );
-            /*
-            if($notification['message'] == "worksheet_imported"){
-                $notification = array(
-                    'title'=> trans('validation.generic.Success'),
-                    'message'=> trans('validation.generic.imported')." ".
-                                trans('validation.generic.data_created')." : ".$notification['created'].". ".
-                                trans('validation.generic.data_updated')." : ".$notification['updated'],
-                    'alert-type' => 'success'
-                );
-            }
-            */
-            /*
-            if($notification['message']  == "worksheet_invalid"){
-                $notification = array(
-                    'title'=> trans('validation.generic.Error'),
-                    'message'=> trans('platform.customer.message.import'),
-                    'alert-type' => 'danger'
-                );
-                return back()->withInput()->with($notification);
-            }
-            */
-            return redirect()->route('customers.index')->with($notification);
-
-        }
-        catch(\Exception $e)
-        {
-            $notification = array(
-                'title'=> trans('validation.generic.Error'),
-                'message'=> trans('validation.generic.not_imported').': '.$e->getMessage(),
-                'alert-type' => 'danger'
-            );
-            return back()->with($notification)->withInput();
-        }
-    }
+//    public function import()
+//    {
+//        return view('customer.import');
+//    }
+//
+//    public function storeImport(ImportRequest $request)
+//    {
+//        try{
+//            $notification = $this->customer_import->allData($request);
+//            $notification = array(
+//                'title'=> trans('validation.generic.Success'),
+//                'message'=> trans('validation.generic.imported')." ".
+//                            trans('validation.generic.data_created')." : ".$notification['created'].". ".
+//                            trans('validation.generic.data_updated')." : ".$notification['updated'],
+//                'alert-type' => 'success'
+//            );
+//            /*
+//            if($notification['message'] == "worksheet_imported"){
+//                $notification = array(
+//                    'title'=> trans('validation.generic.Success'),
+//                    'message'=> trans('validation.generic.imported')." ".
+//                                trans('validation.generic.data_created')." : ".$notification['created'].". ".
+//                                trans('validation.generic.data_updated')." : ".$notification['updated'],
+//                    'alert-type' => 'success'
+//                );
+//            }
+//            */
+//            /*
+//            if($notification['message']  == "worksheet_invalid"){
+//                $notification = array(
+//                    'title'=> trans('validation.generic.Error'),
+//                    'message'=> trans('platform.customer.message.import'),
+//                    'alert-type' => 'danger'
+//                );
+//                return back()->withInput()->with($notification);
+//            }
+//            */
+//            return redirect()->route('customers.index')->with($notification);
+//
+//        }
+//        catch(\Exception $e)
+//        {
+//            $notification = array(
+//                'title'=> trans('validation.generic.Error'),
+//                'message'=> trans('validation.generic.not_imported').': '.$e->getMessage(),
+//                'alert-type' => 'danger'
+//            );
+//            return back()->with($notification)->withInput();
+//        }
+//    }
 
     public function report($customer_id = null)
     {

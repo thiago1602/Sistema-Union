@@ -41,12 +41,10 @@ class ProdutoController extends Controller
      */
     public function store(Request $request)
     {
-        $dados = $request->all('produto', 'data_cadastro');
+        $dados = $request->all('nome','valor', 'data_cadastro');
         if (isset(auth()->user()->id)) {
             $dados['user_id'] = auth()->user()->id;
         }
-
-        dd($dados);
 
         $produto = Produto::create($dados);
         $destinatario = auth()->user()->email;  //usuario logado

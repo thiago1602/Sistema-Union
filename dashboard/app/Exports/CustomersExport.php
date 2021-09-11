@@ -12,8 +12,7 @@ class CustomersExport implements FromCollection
     */
     public function collection()
     {
-       // return Customer::all();
-        return auth()->user()->customers()->get();
+        return Customer::all();
 
 
     }

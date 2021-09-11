@@ -23,9 +23,7 @@ Route::get('/', function () {
 
 
 Route::get('produto/exportacao','ProdutoController@exportacao')->name('produto.exportacao')->middleware('verified');
-Route::get('customers/report/{customer?}','CustomerController@report')->name('customers.report')->middleware('verified');
-Route::get('customers/import','CustomerController@import')->name('customers.import')->middleware('verified');
-Route::post('customers/store-import','CustomerController@storeImport')->name('customers.storeImport')->middleware('verified');
+Route::get('customers/report','CustomerController@report')->name('customers.report')->middleware('verified');
 Route::resource('customers','CustomerController')->middleware('verified');
 Route::resource('produto','ProdutoController')->middleware('verified');
 

@@ -1,41 +1,42 @@
+
 @extends('adminlte::page')
 
 
-@section('title')
-    <title>Clientes</title>
 
-@section('body')
-    <br>
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">Editar Cliente</div>
-    <form action="{{route('customers.update',$customer->id)}}" method="POST">
-        @method('PUT')
-        @csrf
-        <input type="hidden" name="id" value="{{$customer->id}}">
-        <div class="mb-3">
-            <label class="form-label">@lang('platform.customer.form.name')</label>
-            <input type="text" name="name" class="form-control" placeholder="ex. Paulo da Silva" value="{{$customer->name}}">
-        </div>
-        <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">@lang('platform.customer.form.email')</label>
-            <input type="text" name="email" class="form-control" placeholder="ex. name@example.com" value="{{$customer->email}}">
-        </div>
-        <div class="mb-3">
-            <label class="form-label">@lang('platform.customer.form.cpf')</label>
-            <input type="text" name="cpf" class="form-control" placeholder="ex. 118632112221" value="{{$customer->cpf}}">
-        </div>
-        <div class="d-grid gap-2">
-            <button class="btn btn-outline btn-primary" type="submit">@lang('platform.generic.action.submit')</button>
-            <a href="{{route('customers.index')}}" class="btn btn-dark">@lang('platform.customer.message.return')</a>
+                    <div class="card-header">Atualizar Cliente</div>
 
+                    <div class="card-body">
+                        <form method="post" action="{{ route('customers.update', ['customers' => $customers->id]) }}">
+                            @csrf
+                            @method('PUT')
+
+                            <div class="mb-3">
+                                <label class="form-label">Nome</label>
+                                <input type="text" class="form-control" name="name" value="{{$customers->name}}">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Email</label>
+                                <input type="text" class="form-control" name="email" value="{{$customers->email}}">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Cpf</label>
+                                <input type="text" class="form-control" name="cpf" value="{{$customers->cpf}}">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Data do Cadastro</label>
+                                <input type="date" class="form-control" name="data_cadastro" value="{{$customers->data_cadastro}}">
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Atualizar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
-    </form>
-                </div>
-                </div>
-                </div>
-                </div>
+    </div>
 @endsection
