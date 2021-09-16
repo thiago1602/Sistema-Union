@@ -1,9 +1,10 @@
 
+
 @extends('adminlte::page')
 
-
-
 @section('content')
+
+
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -46,12 +47,16 @@
                             <td>{{$c['email']}}</td>
                             <td>{{$c['cpf']}}</td>
                             <td>{{date ('d/m/Y', strtotime($c['data_cadastro']))}}</td>
-                            <td><a href="{{route('customers.edit', $c['id'])}}"><button class="btn btn-primary" type="submit">Editar</button></a>
+                            <td><a href="{{route('customers.edit', $c['id'])}}"><button class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit">
+                                        <i class="fa fa-lg fa-fw fa-pen"></i>
+                                    </button></a>
                                 <form id="form_{{$c['id']}}" method="post" action="{{route('customers.destroy', ['customer' => $c['id']])}}">
                                     @method('DELETE')
                                     @csrf
                                 </form>
-                            <td><a href="#" onclick="document.getElementById('form_{{$c['id']}}').submit()"><button class="btn btn-danger" type="submit">Excluir</button></a> </td>
+                            <td><a href="#" onclick="document.getElementById('form_{{$c['id']}}').submit()"><button class="btn btn-xs btn-default text-danger mx-1 shadow" title="Delete">
+                                        <i class="fa fa-lg fa-fw fa-trash"></i>
+                                    </button></a> </td>
                         </tr>
 
                     @endforeach

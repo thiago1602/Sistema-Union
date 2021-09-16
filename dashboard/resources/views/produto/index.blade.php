@@ -44,12 +44,18 @@
                                 <td>{{$p['nome']}}</td>
                                 <td>{{date ('d/m/Y', strtotime($p['data_cadastro']))}}</td>
                                 <td>{{$p['valor']}}</td>
-                                <td><a href="{{route('produto.edit', $p['id'])}}"><button class="btn btn-primary" type="submit">Editar</button></a>
+                                <td><a href="{{route('produto.edit', $p['id'])}}">
+                                        <button class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit">
+                                            <i class="fa fa-lg fa-fw fa-pen"></i>
+                                        </button></a>
+
                                 <form id="form_{{$p['id']}}" method="post" action="{{route('produto.destroy', ['produto' => $p['id']])}}">
                                       @method('DELETE')
                                 @csrf
                                 </form>
-                                <td><a href="#" onclick="document.getElementById('form_{{$p['id']}}').submit()"> <button class="btn btn-danger" type="submit">Excluir</button></a> </td>
+                                <td><a href="#" onclick="document.getElementById('form_{{$p['id']}}').submit()"> <button class="btn btn-xs btn-default text-danger mx-1 shadow" title="Delete">
+                                            <i class="fa fa-lg fa-fw fa-trash"></i>
+                                        </button></a> </td>
                             </tr>
 
                             @endforeach

@@ -83,12 +83,12 @@ return [
     |
     */
 
-    'layout_topnav' => true,
+    'layout_topnav' => false,
     'layout_boxed' => null,
     'layout_fixed_sidebar' => null,
     'layout_fixed_navbar' => null,
     'layout_fixed_footer' => null,
-    'layout_dark_mode' => true,
+    'layout_dark_mode' => false,
 
     /*
     |--------------------------------------------------------------------------
@@ -102,12 +102,12 @@ return [
     |
     */
 
-    'classes_auth_card' => 'bg-gradient-dark',
-    'classes_auth_header' => '',
-    'classes_auth_body' => 'bg-gradient-dark',
+    'classes_auth_card' => '',
+    'classes_auth_header' => 'bg-gradient-primary',
+    'classes_auth_body' => '',
     'classes_auth_footer' => 'text-center',
-    'classes_auth_icon' => 'fa-fw text-light',
-    'classes_auth_btn' => 'btn-flat btn-light',
+    'classes_auth_icon' => 'fa-lg text-primary',
+    'classes_auth_btn' => 'btn-flat btn-primary',
 
     /*
     |--------------------------------------------------------------------------
@@ -276,7 +276,7 @@ return [
         ],
         [
             'text'    => 'Analises',
-            'icon'    => 'fas fa-clipboard-list',
+            'icon'    => 'fas fa-chart-line',
             'submenu' => [
                 [
                     'text' => 'Relatórios',
@@ -284,11 +284,11 @@ return [
                     'submenu' => [
                         [
                             'text' => 'Clientes',
-                            'route'  => 'customers.report',
+                            'route'  => 'customers.index',
                         ],
                         [
                             'text'=> 'Produtos',
-                            'route'  => 'produto.exportacao',
+                            'route'  => 'produto.index',
                         ]
                     ]
                 ],
@@ -389,17 +389,17 @@ return [
             'files' => [
                 [
                     'type' => 'js',
-                    'asset' => false,
+                    'asset' => true,
                     'location' => '//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js',
                 ],
                 [
                     'type' => 'js',
-                    'asset' => false,
+                    'asset' => true,
                     'location' => '//cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js',
                 ],
                 [
                     'type' => 'css',
-                    'asset' => false,
+                    'asset' => true,
                     'location' => '//cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css',
                 ],
             ],
