@@ -35,7 +35,7 @@ class HomeController extends Controller
 
     public function dashboard()
     {
-        //$this->authorize('is_admin');
+        $this->authorize('is_admin');
 
         $user_counters = new stdClass;
         $user_counters->all_users = $this->user->all()->count();

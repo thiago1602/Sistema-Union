@@ -251,7 +251,7 @@ return [
             'text' => 'Dashboard',
             'url'  => 'dashboard',
             'icon' => 'fas fa-tachometer-alt',
-            //'can'  => 'is_admin',
+            'can'  => 'is_admin',
         ],
         // Sidebar items:
 
