@@ -26,6 +26,7 @@ Route::get('produto/exportacao/{extensao?}','ProdutoController@exportacao')->nam
 Route::get('customers/report/{extensao?}','CustomerController@report')->name('customers.report')->middleware('verified');
 Route::resource('customers','CustomerController')->middleware('verified');
 Route::resource('produto','ProdutoController')->middleware('verified');
+Route::get('dashboard', [App\Http\Controllers\HomeController::class, 'dashboard'])->name('dashboard');
 
 
 Route::get('/mensagem-teste', function (){

@@ -46,7 +46,7 @@ return [
     */
 
     'logo' => '<b>Uni</b>On',
-    //'logo_img' => 'vendor/adminlte/dist/img/union.jpg',
+    'logo_img' => 'vendor/adminlte/dist/img/unionweb.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
@@ -228,7 +228,7 @@ return [
         // Navbar items:
         [
             'type'         => 'navbar-search',
-            'text'         => 'pesquisar',
+            'text'         => false,
             'topnav_right' => true,
         ],
         [
@@ -236,11 +236,24 @@ return [
             'topnav_right' => true,
         ],
 
-        // Sidebar items:
-
         ['header' => 'Omnichanel e CRM',
             'classes'  => 'text-yellow text-bold text-center',
         ],
+
+        [
+            'text' => 'Home',
+            'url'  => 'home',
+            'icon' => 'fas fa-house-user',
+        ],
+
+
+        [
+            'text' => 'Dashboard',
+            'url'  => 'dashboard',
+            'icon' => 'fas fa-tachometer-alt',
+            //'can'  => 'is_admin',
+        ],
+        // Sidebar items:
 
         [
             'text'    => 'Clientes',
@@ -292,7 +305,6 @@ return [
                         ]
                     ]
                 ],
-
             ],
         ],
 
@@ -347,6 +359,7 @@ return [
             'icon_color' => 'cyan',
             'url'        => '#',
         ],
+
     ],
 
     /*
