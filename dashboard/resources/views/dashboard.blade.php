@@ -30,14 +30,14 @@
                         <div class="icon">
                             <i class="ion ion-stats-bars"></i>
                         </div>
-                        <a href="#" class="small-box-footer">Mais detalhes <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="{{route('customers.index')}}" class="small-box-footer">Mais detalhes <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <div class="col-lg-3 col-6">
                     <div class="small-box bg-warning">
                         <div class="inner">
                             <h3>{{ $user_counters->pre_registred_users }}</h3>
-                            <p>Usuários Pré-Cadastrados</p>
+                            <p>Clientes Cadastrados</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-person-add"></i>
@@ -49,7 +49,7 @@
                     <div class="small-box bg-danger">
                         <div class="inner">
                             <h3>{{ $user_counters->inactived_users }}</h3>
-                            <p>Usuários Inativos</p>
+                            <p>Produtos Cadastrados</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-pie-graph"></i>

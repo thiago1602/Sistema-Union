@@ -35408,7 +35408,7 @@ a.close.disabled, a.disabled.mailbox-attachment-close {
 
 .login-page,
 .register-page {
-  -webkit-align-items: center;
+    -webkit-align-items: center;
   -ms-flex-align: center;
   align-items: center;
   background-color: #e9ecef;

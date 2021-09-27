@@ -153,23 +153,23 @@ class CustomerController extends Controller
 
 
 
-       /** if($customer_id==null){
-            $customers = $this->customer->all();
+        /** if($customer_id==null){
+        $customers = $this->customer->all();
         }else{
-            $customers = $this->customer->where('id',$customer_id)->get();
+        $customers = $this->customer->where('id',$customer_id)->get();
         }
         try{
-            $notification = $this->customer_report->list($customers);
+        $notification = $this->customer_report->list($customers);
         }
         catch(\Exception $e){
-            $notification = array(
-                'title'=> trans('platform.generic.Error'),
-                'message'=> trans('platform.report.message.generated_error').': '.$e->getMessage(),
-                'alert-type' => 'danger'
-            );
+        $notification = array(
+        'title'=> trans('platform.generic.Error'),
+        'message'=> trans('platform.report.message.generated_error').': '.$e->getMessage(),
+        'alert-type' => 'danger'
+        );
         }
         return back()->with($notification);
-        **/
+         **/
     }
 
 }
