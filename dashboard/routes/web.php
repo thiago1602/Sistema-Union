@@ -27,7 +27,8 @@ Route::get('customers/report/{extensao?}','CustomerController@report')->name('cu
 Route::resource('customers','CustomerController')->middleware('verified');
 Route::resource('produto','ProdutoController')->middleware('verified');
 Route::get('dashboard', [App\Http\Controllers\HomeController::class, 'dashboard'])->name('dashboard');
-
+Route::get('grafico', 'GraficoController@index')->name('grafico')->middleware('verified');
+Route::get('support', 'SupportController@index')->name('support')->middleware('verified');
 
 Route::get('/mensagem-teste', function (){
     return new \App\Mail\MensagemTesteMail();

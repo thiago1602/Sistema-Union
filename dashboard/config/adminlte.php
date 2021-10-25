@@ -310,36 +310,13 @@ return [
 
 
         [
-            'text'    => 'Integrações',
-            'icon'    => 'far fa-thumbs-up',
-            'submenu' => [
-                [
-                    'text' => 'Redes Sociais',
-                    'url'  => 'admin/settings',
-
-                ],
-                [
-                    'text'    => 'Vendas',
-                    'url'     => 'admin/settings',
-
-                ],
-                [
-                    'text'    => 'Estoque',
-                    'url'     => 'admin/settings',
-
-                ],
-
-            ],
-        ],
-
-        [
             'text' => 'Gráficos',
-            'url'  => 'admin/settings',
+            'url'  => 'grafico',
             'icon' => 'far fa-chart-bar',
         ],
         [
-            'text' => 'Suporte',
-            'url'  => 'admin/settings',
+            'text' => 'CRM & Integração',
+            'url'  => 'support',
             'icon' => 'far fa-question-circle',
         ],
 
