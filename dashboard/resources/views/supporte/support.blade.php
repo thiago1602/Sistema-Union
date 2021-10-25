@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Grafico')
+@section('title', 'CRM & Integração')
 
 @section('content_header')
     <h1>Suporte</h1>
