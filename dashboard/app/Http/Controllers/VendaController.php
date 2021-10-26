@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exports\VendasExport;
 use App\Http\Requests\ImportRequest;
-use App\Import\CustomerImport;
+use App\Import\VendaImport;
 use App\Models\Venda;
 use App\Report\CustomerReport;
 use Illuminate\Http\Request;
@@ -14,7 +14,14 @@ use Maatwebsite\Excel\Facades\Excel;
 class VendaController extends Controller
 {
 
+    public function __construct(Venda $venda,
+    VendaImport $venda_import)
+    {
 
+        $this->venda = $venda;
+        $this->venda_import = $venda_import;
+
+}
     public function index()
     {
 
@@ -84,56 +91,58 @@ class VendaController extends Controller
 
     }
 
-//    public function import()
-//    {
-//        return view('customer.import');
-//    }
-//
-//    public function storeImport(ImportRequest $request)
-//    {
-//        try{
-//            $notification = $this->customer_import->allData($request);
-//            $notification = array(
-//                'title'=> trans('validation.generic.Success'),
-//                'message'=> trans('validation.generic.imported')." ".
-//                            trans('validation.generic.data_created')." : ".$notification['created'].". ".
-//                            trans('validation.generic.data_updated')." : ".$notification['updated'],
-//                'alert-type' => 'success'
-//            );
-//            /*
-//            if($notification['message'] == "worksheet_imported"){
-//                $notification = array(
-//                    'title'=> trans('validation.generic.Success'),
-//                    'message'=> trans('validation.generic.imported')." ".
-//                                trans('validation.generic.data_created')." : ".$notification['created'].". ".
-//                                trans('validation.generic.data_updated')." : ".$notification['updated'],
-//                    'alert-type' => 'success'
-//                );
-//            }
-//            */
-//            /*
-//            if($notification['message']  == "worksheet_invalid"){
-//                $notification = array(
-//                    'title'=> trans('validation.generic.Error'),
-//                    'message'=> trans('platform.customer.message.import'),
-//                    'alert-type' => 'danger'
-//                );
-//                return back()->withInput()->with($notification);
-//            }
-//            */
-//            return redirect()->route('customers.index')->with($notification);
-//
-//        }
-//        catch(\Exception $e)
-//        {
-//            $notification = array(
-//                'title'=> trans('validation.generic.Error'),
-//                'message'=> trans('validation.generic.not_imported').': '.$e->getMessage(),
-//                'alert-type' => 'danger'
-//            );
-//            return back()->with($notification)->withInput();
-//        }
-//    }
+    public function import()
+    {
+        return view('venda.import');
+    }
+
+
+
+    public function storeImport(ImportRequest $request)
+    {
+        try{
+            $notification = $this->venda_import->allData($request);
+            $notification = array(
+                'title'=> trans('validation.generic.Success'),
+                'message'=> trans('validation.generic.imported')." ".
+                            trans('validation.generic.data_created')." : ".$notification['created'].". ".
+                            trans('validation.generic.data_updated')." : ".$notification['updated'],
+                'alert-type' => 'success'
+            );
+
+            /*
+            if($notification['message'] == "worksheet_imported"){
+                $notification = array(
+                    'title'=> trans('validation.generic.Success'),
+                    'message'=> trans('validation.generic.imported')." ".
+                                trans('validation.generic.data_created')." : ".$notification['created'].". ".
+                                trans('validation.generic.data_updated')." : ".$notification['updated'],
+                    'alert-type' => 'success'
+                );
+            }
+/*
+            if($notification['message']  == "worksheet_invalid"){
+                $notification = array(
+                    'title'=> trans('validation.generic.Error'),
+                    'message'=> trans('platform.customer.message.import'),
+                    'alert-type' => 'danger'
+                );
+                return back()->withInput()->with($notification);
+            }
+            */
+            return redirect()->route('venda.index')->with($notification);
+
+        }
+        catch(\Exception $e)
+        {
+            $notification = array(
+                'title'=> trans('validation.generic.Error'),
+                'message'=> trans('validation.generic.not_imported').': '.$e->getMessage(),
+                'alert-type' => 'danger'
+            );
+            return back()->with($notification)->withInput();
+        }
+    }
 
     public function report($extensao)
     {

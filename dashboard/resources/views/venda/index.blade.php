@@ -14,11 +14,12 @@
                             <div class="col-6">
                                 Vendas
                             </div>
-                            <div class="col-6">
+                            <div class="col-12">
                                 <div class="float-right">
-                                    <a href="{{route('venda.create')}}" class="mr-3"><button class="btn btn-primary" type="submit">Novo</button></a>
-                                    <a href="{{route('venda.report', ['extensao' => 'xlsx'])}}" class="mr-3"><button class="btn btn-primary" type="submit">XLSX</button></a>
-                                <a href="{{route('venda.report', ['extensao' => 'csv'])}}" class="mr-3"><button class="btn btn-primary" type="submit">CSV</button></a>
+                                    <a href="{{route('venda.create')}}" class="mr-2"><button class="btn btn-primary" type="submit">Novo</button></a>
+                                    <a href="{{route('venda.import')}}"class="mr-2"><button class="btn btn-primary" type="submit">Importar Vendas</button></a>
+                                    <a href="{{route('venda.report', ['extensao' => 'xlsx'])}}" class="mr-2"><button class="btn btn-primary" type="submit">XLSX</button></a>
+                                <a href="{{route('venda.report', ['extensao' => 'csv'])}}" class="mr-2"><button class="btn btn-primary" type="submit">CSV</button></a>
                                 </div>
                             </div>
                         </div>
@@ -33,7 +34,7 @@
                         <th scope="col">ID</th>
                         <th scope="col">Produto</th>
                         <th scope="col">Valor</th>
-                        <th scope="col">Data do Cadastro</th>
+                        <th scope="col">Data da Venda</th>
                         <th scope="col"></th>
                     </tr>
                     </thead>

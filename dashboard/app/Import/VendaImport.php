@@ -9,20 +9,20 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 
-class CustomerImport
+class VendaImport
 {
-    protected $customer;
-    protected $sanatize;
+    protected $venda;
+   // protected $sanatize;
 
-    public function __construct(Venda $customer, Sanitize $sanatize)
+    public function __construct(Venda $venda, Sanitize $sanatize)
     {
-        $this->customer = $customer;
-        $this->sanatize = $sanatize;
+        $this->venda = $venda;
+       // $this->sanatize = $sanatize;
     }
 
     public function allData(Request $request)
     {
-        //insert customers in the database
+        //insert vendas in the database
         $read = IOFactory::load($request->file);
         $data = $read->getActiveSheet()->toArray();
         $line=0;
@@ -36,23 +36,23 @@ class CustomerImport
                     //
                 }
                 if($line>0){
-                    //verify if the current customer exists
-                    $cpf = $this->sanatize->validCpf($item[2]);
-                    $customer = $this->customer->where('cpf',$cpf)->first();
-                    //if exists customer
-                    if(!empty($customer)){
-                        $customer->update([
-                            'name'=> $item[0],
-                            'email'=> $item[1],
-                            'cpf'=> $cpf,
+                    //verify if the current venda exists
+                    $valor = $this->sanatize->validValor($item[1]);
+                    $venda = $this->venda->where('valor',$valor)->first();
+                    //if exists venda
+                    if(!empty($venda)){
+                        $venda->update([
+                            'produto'=> $item[0],
+                            'valor'=> $item[1],
+                            'data_cadastro'=> $item[2],
                         ]);
                         $updated++;
                     //if not exists
                     }else{
-                        $this->customer->create([
-                            'name'=> $item[0],
-                            'email'=> $item[1],
-                            'cpf'=> $cpf,
+                        $this->venda->create([
+                            'produto'=> $item[0],
+                            'valor'=> $item[1],
+                            'data_cadastro'=> $item [2],
                         ]);
                         $created++;
                     }
@@ -60,7 +60,7 @@ class CustomerImport
                 $line++;
             //not exists 3 columns in the worksheet
             }else{
-                throw new Exception(trans('platform.customer.message.import'));
+                throw new Exception(trans('platform.venda.message.import'));
             }
         }
         //returns imported worksheet notification

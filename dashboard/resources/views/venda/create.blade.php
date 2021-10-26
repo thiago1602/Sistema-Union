@@ -23,7 +23,7 @@
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label">Data do Cadastro</label>
+                                <label class="form-label">Data da Venda</label>
                                 <input type="date" class="form-control" name="data_cadastro">
                             </div>
 
