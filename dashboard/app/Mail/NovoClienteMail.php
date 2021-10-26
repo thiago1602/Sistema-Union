@@ -2,16 +2,16 @@
 
 namespace App\Mail;
 
-use App\Models\Produto;
+use App\Models\Cliente;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class NovoProdutoMail extends Mailable
+class NovoClienteMail extends Mailable
 {
     use Queueable, SerializesModels;
-    public $produto;
+    public $cliente;
     public $data_cadastro;
     public $url;
 
@@ -21,11 +21,11 @@ class NovoProdutoMail extends Mailable
      *
      * @return void
      */
-    public function __construct(Produto $produto)
+    public function __construct(Cliente $cliente)
     {
-        $this->produto = date('d/m/Y', strtotime( $produto->produto));
-        $this->data_cadastro = $produto->data_cadastro;
-        $this->url = 'http://localhost:8000/produto/'.$produto->id;
+        $this->cliente = date('d/m/Y', strtotime( $cliente->cliente));
+        $this->data_cadastro = $cliente->data_cadastro;
+        $this->url = 'http://localhost:8000/cliente/'.$cliente->id;
 
     }
 
@@ -36,6 +36,6 @@ class NovoProdutoMail extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.novo-produto')->subject('Novo produto criado');
+        return $this->markdown('emails.novo-cliente')->subject('Novo cliente criado');
     }
 }

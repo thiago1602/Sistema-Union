@@ -2,7 +2,7 @@
 
 namespace App\Import;
 
-use App\Models\Customer;
+use App\Models\Venda;
 use App\Tools\Sanitize;
 use Exception;
 use Illuminate\Http\Request;
@@ -14,7 +14,7 @@ class CustomerImport
     protected $customer;
     protected $sanatize;
 
-    public function __construct(Customer $customer, Sanitize $sanatize)
+    public function __construct(Venda $customer, Sanitize $sanatize)
     {
         $this->customer = $customer;
         $this->sanatize = $sanatize;

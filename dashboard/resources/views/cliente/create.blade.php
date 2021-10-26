@@ -8,22 +8,18 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">Cadastrar Cliente</div>
+                    <div class="card-header">Cadastrar Clientes</div>
 
                     <div class="card-body">
-                        <form method="post" action="{{ route('customers.store') }}">
+                        <form method="post" action="{{ route('cliente.store') }}">
                             @csrf
                             <div class="mb-3">
                                 <label class="form-label">Nome</label>
-                                <input type="text" class="form-control" name="name">
+                                <input type="text" class="form-control" name="nome">
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Email</label>
                                 <input type="text" class="form-control" name="email">
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Cpf</label>
-                                <input type="text" class="form-control" name="cpf">
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Data do Cadastro</label>

@@ -1,15 +1,15 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Exports\ProdutosExport;
+use App\Exports\ClientesExport;
 Use Illuminate\Support\Facades\Mail;
-use App\Mail\NovoProdutoMail;
-use App\Models\Produto;
+use App\Mail\NovoClienteMail;
+use App\Models\Cliente;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
 
-class ProdutoController extends Controller
+class ClienteController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,8 +19,8 @@ class ProdutoController extends Controller
     public function index()
     {
         $user_id = auth()->user()->id;
-        $produto = Produto::where('user_id', $user_id)->paginate(10);
-        return view('produto.index',['produto' => $produto]);
+        $cliente = Cliente::where('user_id', $user_id)->paginate(10);
+        return view('cliente.index',['cliente' => $cliente]);
     }
 
     /**
@@ -30,7 +30,7 @@ class ProdutoController extends Controller
      */
     public function create()
     {
-        return view('produto.create');
+        return view('cliente.create');
     }
 
     /**
@@ -41,40 +41,40 @@ class ProdutoController extends Controller
      */
     public function store(Request $request)
     {
-        $dados = $request->all('nome','valor', 'data_cadastro');
+        $dados = $request->all('nome','email', 'data_cadastro');
         if (isset(auth()->user()->id)) {
             $dados['user_id'] = auth()->user()->id;
         }
 
-        $produto = Produto::create($dados);
+        $cliente = Cliente::create($dados);
         $destinatario = auth()->user()->email;  //usuario logado
-        Mail::to($destinatario)->send(new NovoProdutoMail($produto) );
-        return redirect()->route('produto.show', ['produto' => $produto->id]);
+        Mail::to($destinatario)->send(new NovoClienteMail($cliente) );
+        return redirect()->route('cliente.show', ['cliente' => $cliente->id]);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Produto  $produto
+     * @param  \App\Models\Cliente  $cliente
      * @return \Illuminate\Http\Response
      */
-    public function show(Produto $produto)
+    public function show(Cliente $cliente)
     {
-        return view('produto.show', ['produto'=> $produto]);
+        return view('cliente.show', ['cliente'=> $cliente]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Produto  $produto
+     * @param  \App\Models\Cliente  $cliente
      * @return \Illuminate\Http\Response
      */
-    public function edit(Produto $produto)
+    public function edit(Cliente $cliente)
     {
         $user_id = auth()->user()->id;
 
-       if($produto->user_id == $user_id){
-           return view('produto.edit', ['produto' => $produto]);
+       if($cliente->user_id == $user_id){
+           return view('cliente.edit', ['cliente' => $cliente]);
 
        }
 
@@ -86,51 +86,51 @@ class ProdutoController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Produto  $produto
+     * @param  \App\Models\Cliente  $cliente
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Produto $produto)
+    public function update(Request $request, Cliente $cliente)
     {
 
-        if (!$produto->user_id == auth()->user()->id) {
+        if (!$cliente->user_id == auth()->user()->id) {
             return view('acesso-negado');
         }
 
-            $produto->update($request->all());
-            return redirect()->route('produto.show', ['produto' => $produto->id]);
+            $cliente->update($request->all());
+            return redirect()->route('cliente.show', ['cliente' => $cliente->id]);
         }
 
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Produto  $produto
+     * @param  \App\Models\Cliente  $cliente
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Produto $produto)
+    public function destroy(Cliente $cliente)
     {
 
-        if (!$produto->user_id == auth()->user()->id) {
+        if (!$cliente->user_id == auth()->user()->id) {
             return view('acesso-negado');
         }
-       $produto->delete();
-        return redirect()->route('produto.index');
+       $cliente->delete();
+        return redirect()->route('cliente.index');
 
     }
 
     public function exportacao($extensao){
 
-        $nome_arquivo =  'lista_de_produtos';
+        $nome_arquivo =  'lista_de_clientes';
 
         if ($extensao == 'xlsx'){
             $nome_arquivo .= '.'.$extensao;
         }else if ($extensao == 'csv'){
             $nome_arquivo .= '.'.$extensao;
         } else{
-            return redirect()->route('produto.index');
+            return redirect()->route('cliente.index');
 
         }
-        return Excel::download(new ProdutosExport, $nome_arquivo);
+        return Excel::download(new ClientesExport, $nome_arquivo);
     }
 
 

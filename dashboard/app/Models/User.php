@@ -54,12 +54,12 @@ class User extends Authenticatable implements MustVerifyEmail
         $this->notify(new VerificarEmailNotification($this->name));
     }
 
-    public function produtos(){
-        return $this->hasMany('App\Models\Produto');
+    public function clientes(){
+        return $this->hasMany('App\Models\Cliente');
     }
 
-    public function customers(){
-        return $this->hasMany('App\Models\Customer');
+    public function venda(){
+        return $this->hasMany('App\Models\Venda');
     }
 
 

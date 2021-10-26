@@ -30,7 +30,7 @@
                         <div class="icon">
                             <i class="ion ion-stats-bars"></i>
                         </div>
-                        <a href="{{route('customers.index')}}" class="small-box-footer">Mais detalhes <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="{{route('venda.index')}}" class="small-box-footer">Mais detalhes <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <div class="col-lg-3 col-6">

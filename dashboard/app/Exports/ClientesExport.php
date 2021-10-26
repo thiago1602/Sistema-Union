@@ -2,17 +2,17 @@
 
 namespace App\Exports;
 
-use App\Models\Customer;
+use App\Models\Cliente;
 use Maatwebsite\Excel\Concerns\FromCollection;
 
-class CustomersExport implements FromCollection
+class ClientesExport implements FromCollection
 {
     /**
     * @return \Illuminate\Support\Collection
     */
     public function collection()
     {
-        return Customer::all();
+        return auth()->user()->clientes()->get();
 
 
     }

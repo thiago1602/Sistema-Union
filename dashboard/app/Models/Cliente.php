@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Produto extends Model
+class Cliente extends Model
 {
     use HasFactory;
-    protected $table = "produto";
+    protected $table = "cliente";
 
-    protected $fillable = ['nome', 'valor', 'data_cadastro', 'user_id'];
+    protected $fillable = ['nome', 'email', 'data_cadastro', 'user_id'];
 
     public function user()
     {

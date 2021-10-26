@@ -11,25 +11,21 @@
                     <div class="card-header">Atualizar Cliente</div>
 
                     <div class="card-body">
-                        <form method="post" action="{{ route('customers.update', ['customers' => $customers->id]) }}">
+                        <form method="post" action="{{ route('cliente.update', ['cliente' => $cliente->id]) }}">
                             @csrf
                             @method('PUT')
 
                             <div class="mb-3">
                                 <label class="form-label">Nome</label>
-                                <input type="text" class="form-control" name="name" value="{{$customers->name}}">
+                                <input type="text" class="form-control" name="nome" value="{{$cliente->nome}}">
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Email</label>
-                                <input type="text" class="form-control" name="email" value="{{$customers->email}}">
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Cpf</label>
-                                <input type="text" class="form-control" name="cpf" value="{{$customers->cpf}}">
+                                <input type="text" class="form-control" name="email" value="{{$cliente->email}}">
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Data do Cadastro</label>
-                                <input type="date" class="form-control" name="data_cadastro" value="{{$customers->data_cadastro}}">
+                                <input type="date" class="form-control" name="data_cadastro" value="{{$cliente->data_cadastro}}">
                             </div>
 
                             <button type="submit" class="btn btn-primary">Atualizar</button>

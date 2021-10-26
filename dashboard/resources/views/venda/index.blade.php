@@ -12,13 +12,13 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col-6">
-                                Clientes
+                                Vendas
                             </div>
                             <div class="col-6">
                                 <div class="float-right">
-                                    <a href="{{route('customers.create')}}" class="mr-3"><button class="btn btn-primary" type="submit">Novo</button></a>
-                                    <a href="{{route('customers.report', ['extensao' => 'xlsx'])}}" class="mr-3"><button class="btn btn-primary" type="submit">XLSX</button></a>
-                                <a href="{{route('customers.report', ['extensao' => 'csv'])}}" class="mr-3"><button class="btn btn-primary" type="submit">CSV</button></a>
+                                    <a href="{{route('venda.create')}}" class="mr-3"><button class="btn btn-primary" type="submit">Novo</button></a>
+                                    <a href="{{route('venda.report', ['extensao' => 'xlsx'])}}" class="mr-3"><button class="btn btn-primary" type="submit">XLSX</button></a>
+                                <a href="{{route('venda.report', ['extensao' => 'csv'])}}" class="mr-3"><button class="btn btn-primary" type="submit">CSV</button></a>
                                 </div>
                             </div>
                         </div>
@@ -31,26 +31,24 @@
                     <thead>
                     <tr>
                         <th scope="col">ID</th>
-                        <th scope="col">Nome</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Cpf</th>
+                        <th scope="col">Produto</th>
+                        <th scope="col">Valor</th>
                         <th scope="col">Data do Cadastro</th>
                         <th scope="col"></th>
                     </tr>
                     </thead>
                     <tbody>
 
-                    @foreach($customers as $key => $c)
+                    @foreach($venda as $key => $c)
                         <tr>
                             <th scope="row">{{$c['id']}}</th>
-                            <td>{{$c['name']}}</td>
-                            <td>{{$c['email']}}</td>
-                            <td>{{$c['cpf']}}</td>
+                            <td>{{$c['produto']}}</td>
+                            <td>{{$c['valor']}}</td>
                             <td>{{date ('d/m/Y', strtotime($c['data_cadastro']))}}</td>
-                            <td><a href="{{route('customers.edit', $c['id'])}}"><button class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit">
+                            <td><a href="{{route('venda.edit', $c['id'])}}"><button class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit">
                                         <i class="fa fa-lg fa-fw fa-pen"></i>
                                     </button></a>
-                                <form id="form_{{$c['id']}}" method="post" action="{{route('customers.destroy', ['customer' => $c['id']])}}">
+                                <form id="form_{{$c['id']}}" method="post" action="{{route('venda.destroy', ['venda' => $c['id']])}}">
                                     @method('DELETE')
                                     @csrf
                                 </form>
@@ -66,18 +64,18 @@
                 <nav>
                     <ul class="pagination">
                         <li class="page-item">
-                            <a class="page-link" href="{{$customers->previousPageUrl()}}" aria-label="Previous">
+                            <a class="page-link" href="{{$venda->previousPageUrl()}}" aria-label="Previous">
                                 <span aria-hidden="true">&laquo;</span>
                             </a>
                         </li>
 
-                        @for($i = 1; $i <= $customers->lastPage(); $i++)
-                            <li class="page-item {{$customers->currentPage() == $i ? 'active' : ''}}">
-                                <a class="page-link" href="{{$customers->url($i)}}">{{$i}}</a>
+                        @for($i = 1; $i <= $venda->lastPage(); $i++)
+                            <li class="page-item {{$venda->currentPage() == $i ? 'active' : ''}}">
+                                <a class="page-link" href="{{$venda->url($i)}}">{{$i}}</a>
                             </li>
                         @endfor
                         <li class="page-item">
-                            <a class="page-link" href="{{$customers->nextPageUrl()}}" aria-label="Next">
+                            <a class="page-link" href="{{$venda->nextPageUrl()}}" aria-label="Next">
                                 <span aria-hidden="true">&raquo;</span>
                             </a>
                         </li>

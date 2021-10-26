@@ -256,32 +256,32 @@ return [
         // Sidebar items:
 
         [
-            'text'    => 'Clientes',
-            'icon'    => 'fas fa-fw fa-user',
+            'text'    => 'Vendas',
+            'icon'    => 'fas fa-cart-plus',
             'submenu' => [
                 [
-                    'text' => 'Novo Cliente',
-                    'route'     => 'customers.create',
+                    'text' => 'Nova Venda',
+                    'route'     => 'venda.create',
                 ],
                 [
-                    'text'    => 'Listar Clientes',
-                    'route'     => 'customers.index',
+                    'text'    => 'Listar Vendas',
+                    'route'     => 'venda.index',
 
                 ],
 
             ],
         ],
         [
-            'text'    => 'Produtos',
-            'icon'    => 'fas fa-cart-plus',
+            'text'    => 'Clientes',
+            'icon'    => 'fas fa-fw fa-user',
             'submenu' => [
                 [
-                    'text' => 'Novo Produto',
-                    'route'  => 'produto.create',
+                    'text' => 'Novo Cliente',
+                    'route'  => 'cliente.create',
                 ],
                 [
-                    'text'    => 'Listar Produtos',
-                    'route'     => 'produto.index',
+                    'text'    => 'Listar Clientes',
+                    'route'     => 'cliente.index',
 
                 ],
 
@@ -296,12 +296,12 @@ return [
                     'url'  => 'admin/settings',
                     'submenu' => [
                         [
-                            'text' => 'Clientes',
-                            'route'  => 'customers.index',
+                            'text' => 'Vendas',
+                            'route'  => 'venda.index',
                         ],
                         [
-                            'text'=> 'Produtos',
-                            'route'  => 'produto.index',
+                            'text'=> 'Clientes',
+                            'route'  => 'cliente.index',
                         ]
                     ]
                 ],

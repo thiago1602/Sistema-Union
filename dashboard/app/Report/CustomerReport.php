@@ -2,7 +2,7 @@
 
 namespace  App\Report;
 
-use App\Models\Customer;
+use App\Models\Venda;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 

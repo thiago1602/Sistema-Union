@@ -2,17 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Exports\CustomersExport;
-use App\Http\Requests\CustomerRequest;
+use App\Exports\VendasExport;
 use App\Http\Requests\ImportRequest;
 use App\Import\CustomerImport;
-use App\Models\Customer;
+use App\Models\Venda;
 use App\Report\CustomerReport;
 use Illuminate\Http\Request;
 use Exception;
 use Maatwebsite\Excel\Facades\Excel;
 
-class CustomerController extends Controller
+class VendaController extends Controller
 {
 
 
@@ -20,38 +19,40 @@ class CustomerController extends Controller
     {
 
         $user_id = auth()->user()->id;
-        $customers = Customer::where('user_id', $user_id)->paginate(10);
-        return view('customer.index',['customers' => $customers]);
+        $venda = Venda::where('user_id', $user_id)->paginate(10);
+        return view('venda.index',['venda' => $venda]);
     }
 
     public function create()
     {
-        return view('customer.create');
+        return view('venda.create');
     }
 
-    public function store(CustomerRequest $request)
+    public function store(Request $request)
     {
-        $dados = $request->all('name','email', 'cpf', 'data_cadastro');
+        $dados = $request->all('produto','valor', 'data_cadastro');
         if (isset(auth()->user()->id)) {
             $dados['user_id'] = auth()->user()->id;
         }
 
-        $customers = Customer::create($dados);
-        return redirect()->route('customer.show', ['customers' => $customers->id]);
+        $venda = Venda::create($dados);
+        return redirect()->route('venda.show', ['venda' => $venda->id]);
+
     }
 
 
-    public function show(Customer $customers)
+    public function show(Venda $venda)
     {
-        return view('customer.show', ['customers'=> $customers]);
+
+        return view('venda.show', ['venda'=> $venda]);
     }
 
-    public function edit(Customer $customers)
+    public function edit(Venda $venda)
     {
         $user_id = auth()->user()->id;
 
-        if($customers->user_id == $user_id){
-            return view('customer.edit', ['customers' => $customers]);
+        if($venda->user_id == $user_id){
+            return view('venda.edit', ['venda' => $venda]);
 
         }
 
@@ -59,27 +60,27 @@ class CustomerController extends Controller
 
     }
 
-    public function update(Request $request, Customer $customers)
+    public function update(Request $request, Venda $venda)
     {
 
-        if (!$customers->user_id == auth()->user()->id) {
+        if (!$venda->user_id == auth()->user()->id) {
             return view('acesso-negado');
         }
 
-        $customers->update($request->all());
-        return redirect()->route('customer.show', ['customers' => $customers->id]);
+        $venda->update($request->all());
+        return redirect()->route('venda.show', ['venda' => $venda->id]);
     }
 
 
 
-    public function destroy(Customer $customers)
+    public function destroy(Venda $venda)
     {
 
-        if (!$customers->user_id == auth()->user()->id) {
+        if (!$venda->user_id == auth()->user()->id) {
             return view('acesso-negado');
         }
-        $customers->delete();
-        return redirect()->route('customer.index');
+        $venda->delete();
+        return redirect()->route('venda.index');
 
     }
 
@@ -138,17 +139,17 @@ class CustomerController extends Controller
     {
 
 
-        $nome_arquivo =  'lista_de_clientes';
+        $nome_arquivo =  'lista_de_vendas';
 
         if ($extensao == 'xlsx'){
             $nome_arquivo .= '.'.$extensao;
         }else if ($extensao == 'csv'){
             $nome_arquivo .= '.'.$extensao;
         } else{
-            return redirect()->route('customer.index');
+            return redirect()->route('venda.index');
 
         }
-        return Excel::download(new CustomersExport, $nome_arquivo);
+        return Excel::download(new VendasExport, $nome_arquivo);
 
 
 

@@ -22,10 +22,10 @@ Route::get('/', function () {
 
 
 
-Route::get('produto/exportacao/{extensao?}','ProdutoController@exportacao')->name('produto.exportacao')->middleware('verified');
-Route::get('customers/report/{extensao?}','CustomerController@report')->name('customers.report')->middleware('verified');
-Route::resource('customers','CustomerController')->middleware('verified');
-Route::resource('produto','ProdutoController')->middleware('verified');
+Route::get('cliente/exportacao/{extensao?}','ClienteController@exportacao')->name('cliente.exportacao')->middleware('verified');
+Route::get('venda/report/{extensao?}','VendaController@report')->name('venda.report')->middleware('verified');
+Route::resource('venda','VendaController')->middleware('verified');
+Route::resource('cliente','ClienteController')->middleware('verified');
 Route::get('dashboard', [App\Http\Controllers\HomeController::class, 'dashboard'])->name('dashboard');
 Route::get('grafico', 'GraficoController@index')->name('grafico')->middleware('verified');
 Route::get('support', 'SupportController@index')->name('support')->middleware('verified');

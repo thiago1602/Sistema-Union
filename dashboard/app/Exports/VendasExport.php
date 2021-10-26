@@ -2,17 +2,17 @@
 
 namespace App\Exports;
 
-use App\Models\Produto;
+use App\Models\Venda;
 use Maatwebsite\Excel\Concerns\FromCollection;
 
-class ProdutosExport implements FromCollection
+class VendasExport implements FromCollection
 {
     /**
     * @return \Illuminate\Support\Collection
     */
     public function collection()
     {
-        return auth()->user()->produtos()->get();
+        return Venda::all();
 
 
     }

@@ -1,10 +1,10 @@
 @component('mail::message')
-# {{$produto}}}
+# {{$cliente}}}
 
 Data de cadastro {{$data_cadastro}}
 
 @component('mail::button', ['url' => $url])
-Clique aqui para ver o produto
+Clique aqui para ver o cliente
 @endcomponent
 
 Att,<br>
