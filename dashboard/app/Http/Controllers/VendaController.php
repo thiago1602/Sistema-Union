@@ -96,8 +96,15 @@ class VendaController extends Controller
         return view('venda.import');
     }
 
+    public function importVenda(Request $request)
+    {
+
+        Excel::import(new VendaImport, $request->file);
+        return "Arquivo importado com sucesso";
+    }
 
 
+/*
     public function storeImport(ImportRequest $request)
     {
         try{
@@ -130,7 +137,7 @@ class VendaController extends Controller
                 return back()->withInput()->with($notification);
             }
             */
-            return redirect()->route('venda.index')->with($notification);
+          /*  return redirect()->route('venda.index')->with($notification);
 
         }
         catch(\Exception $e)
@@ -143,6 +150,8 @@ class VendaController extends Controller
             return back()->with($notification)->withInput();
         }
     }
+          */
+
 
     public function report($extensao)
     {

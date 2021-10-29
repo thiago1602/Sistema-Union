@@ -26,8 +26,8 @@ Route::get('cliente/exportacao/{extensao?}','ClienteController@exportacao')->nam
 Route::get('venda/report/{extensao?}','VendaController@report')->name('venda.report')->middleware('verified');
 
 
-Route::get('venda/import','VendaController@import')->name('venda.import')->middleware('verified');;
-Route::post('venda/store-import','VendaController@storeImport')->name('venda.storeImport')->middleware('verified');;
+Route::get('venda/import','VendaController@import')->name('venda.import')->middleware('verified');
+Route::post('importVenda','VendaController@importVenda')->name('venda.import')->middleware('verified');
 
 
 Route::resource('venda','VendaController')->middleware('verified');

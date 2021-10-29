@@ -13,10 +13,11 @@
                             <div class="col-6">
                         Clientes
                             </div>
-                            <div class="col-6">
+                            <div class="col-12">
                                 <div class="float-right">
-                        <a href="{{route('cliente.create')}}" class="mr-3"><button class="btn btn-primary" type="submit">Novo</button></a>
-                        <a href="{{route('cliente.exportacao', ['extensao' => 'xlsx'])}}" class="mr-3"><button class="btn btn-primary" type="submit">XLSX</button></a>
+                        <a href="{{route('cliente.create')}}" class="mr-2"><button class="btn btn-primary" type="submit">Novo</button></a>
+                                    <a href="{{route('venda.import')}}"class="mr-3"><button class="btn btn-primary" type="submit">Importar Clientes</button></a>
+                                    <a href="{{route('cliente.exportacao', ['extensao' => 'xlsx'])}}" class="mr-3"><button class="btn btn-primary" type="submit">XLSX</button></a>
                         <a href="{{route('cliente.exportacao', ['extensao' => 'csv'])}}" class="mr-3" ><button class="btn btn-primary" type="submit">CSV</button></a>
                             </div>
                         </div>
